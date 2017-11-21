@@ -12,7 +12,7 @@ $ $CC -o foo.o -c foo.c  (不必执行这一行，这条命令是调用gcc编译
 - 不过还需要考虑共享库的链接问题，要确保该程序没有链接ndk未提供的共享库。
 该方法的缺陷就是，不能使用 C++ STL（STLport 或 GNU libstdc++ ），也不能使用异常机制和RTTI。
 
-## 调用NDK编译器
+## 2.调用NDK编译器
 - android ndk 提供脚本，允许自己定制一套工具链。例如：
 $ $NDK/build/tools/make-standalone-toolchain.sh --platform=android-5 --install-dir=/tmp/my-android-toolchain [ --arch=x86 ]
 - 将会在/tmp/my-android-toolchain 中创建 sysroot 环境和 工具链。--arch 选项选择目标程序的指令架构，默认是为 arm。
@@ -28,4 +28,4 @@ $ export CXXFLAGS="-lstdc++"
 - ndk 同时支持 arm5 和 arm7，一般只用 arm5就好了。arm7是高端一点的，NDK 默认也是 arm5 。
 - 推荐加上 -mthumb 选项给gcc，来生成 16-bit Thumb-1 指令。
 - 如果要用 arm7，可以设定 CFLAGS='-march=armv7-a -mfloat-abi=softfp'， 使用 Thumb-2 指令，且这两个选项不能分开！
-## ndk-build 命令
+## 3.ndk-build 命令
