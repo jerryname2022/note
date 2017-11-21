@@ -29,3 +29,4 @@ $ export CXXFLAGS="-lstdc++"
 - 推荐加上 -mthumb 选项给gcc，来生成 16-bit Thumb-1 指令。
 - 如果要用 arm7，可以设定 CFLAGS='-march=armv7-a -mfloat-abi=softfp'， 使用 Thumb-2 指令，且这两个选项不能分开！
 ## 3.ndk-build 命令
+## http://blog.csdn.net/h291850336/article/details/49022675
