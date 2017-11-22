@@ -1,0 +1,98 @@
+#!/bin/bash
+
+ARCH=$1
+ARCHS="arm arm64 x86 x86_64 mips mips64"
+INSTALL_ROOT=`pwd`
+PLATFORM_9=android-9
+PLATFORM_21=android-21
+VERSION=4.9
+
+echo_start(){
+ ARGS=$*
+ echo "----------------------"
+ echo " make toolchain $ARGS "
+ echo "----------------------"
+}
+echo_end(){
+ echo "----------------------"
+ echo "          end         "
+ echo "----------------------"
+}
+make_toolchain(){
+  FLAGS=$*
+  echo_start $FLAGS
+  $ANDROID_NDK/build/tools/make-standalone-toolchain.sh $FLAGS
+  echo_end 
+}
+make_arm_toolchain(){
+  ARCH=arm
+  PLATFORM=$PLATFORM_9
+  TOOLCHAIN=arm-linux-androideabi-$VERSION
+  INSTALL_PATH=$INSTALL_ROOT/arm-toolchain
+  MFLAGS="--toolchain=$TOOLCHAIN --arch=$ARCH --install-dir=$INSTALL_PATH --platform=$PLATFORM"
+  make_toolchain $MFLAGS
+}
+make_arm64_toolchain(){
+  ARCH=arm64
+  PLATFORM=$PLATFORM_21
+  TOOLCHAIN=aarch64-linux-android-$VERSION
+  INSTALL_PATH=$INSTALL_ROOT/arm64-toolchain
+  MFLAGS="--toolchain=$TOOLCHAIN --arch=$ARCH --install-dir=$INSTALL_PATH --platform=$PLATFORM"
+  make_toolchain $MFLAGS
+}
+
+make_x86_toolchain(){
+  ARCH=x86
+  PLATFORM=$PLATFORM_9
+  TOOLCHAIN=x86-linux-android-$VERSION
+  INSTALL_PATH=$INSTALL_ROOT/x86-toolchain
+  MFLAGS="--toolchain=$TOOLCHAIN --arch=$ARCH --install-dir=$INSTALL_PATH --platform=$PLATFORM"
+  make_toolchain $MFLAGS
+}
+
+make_x86_64_toolchain(){
+  ARCH=x86_64
+  PLATFORM=$PLATFORM_21
+  TOOLCHAIN=x86_64-linux-android-$VERSION
+  INSTALL_PATH=$INSTALL_ROOT/x86_64-toolchain
+  MFLAGS="--toolchain=$TOOLCHAIN --arch=$ARCH --install-dir=$INSTALL_PATH --platform=$PLATFORM"
+  make_toolchain $MFLAGS
+}
+make_mips_toolchain(){
+  ARCH=mips
+  PLATFORM=$PLATFORM_9
+  TOOLCHAIN=mipsel-linux-android-$VERSION
+  INSTALL_PATH=$INSTALL_ROOT/mips-toolchain
+  MFLAGS="--toolchain=$TOOLCHAIN --arch=$ARCH --install-dir=$INSTALL_PATH --platform=$PLATFORM"
+  make_toolchain $MFLAGS
+}
+make_mips64_toolchain(){
+  ARCH=mips64
+  PLATFORM=$PLATFORM_21
+  TOOLCHAIN=mips64el-linux-android-$VERSION
+  INSTALL_PATH=$INSTALL_ROOT/mips64-toolchain
+  MFLAGS="--toolchain=$TOOLCHAIN --arch=$ARCH --install-dir=$INSTALL_PATH --platform=$PLATFORM"
+  make_toolchain $MFLAGS
+}
+
+if [ "$ARCH" = "all" ];then
+  for ARC in $ARCHS 
+    do
+    ./make-toolchain $ARC
+    done
+elif [ "$ARCH" = "arm" ];then
+  make_arm_toolchain
+elif [ "$ARCH" = "arm64" ];then
+  make_arm64_toolchain
+elif [ "$ARCH" = "x86" ];then
+  make_x86_toolchain
+elif [ "$ARCH" = "x86_64" ];then
+  make_x86_64_toolchain
+elif [ "$ARCH" = "mips" ];then
+  make_mips_toolchain
+elif [ "$ARCH" = "mips64" ];then
+  make_mips64_toolchain
+else
+  echo "make default arch ----------"
+  make_arm_toolchain
+fi
