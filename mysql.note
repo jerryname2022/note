@@ -1,0 +1,2 @@
+mysql不支持中文解决方法，创建数据库时，指定编码。
+eg: create database SPD default charset=utf8;
