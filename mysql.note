@@ -1,2 +1,13 @@
 mysql不支持中文解决方法，创建数据库时，指定编码。
 eg: create database SPD default charset=utf8;
+
+alter table 表名 modify column 列名 类型(要修改的长度);
+
+alter table dy2018_film modify column film_describe varchar(21845);
+
+
+ALTER TABLE 表名 ALTER COLUMN 列名 TEXT
+
+ALTER TABLE dy2018_film ALTER COLUMN film_describe TEXT;
+
+alter table dy2018_film  modify column magnet  text;
