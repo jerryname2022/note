@@ -1,0 +1,37 @@
+ apt-get install git
+ apt-get install yasm
+ download android-ndk-r12b ## https://dl.google.com/android/repository/android-ndk-r12b-linux-x86_64.zip
+ download android-sdk   ##http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz
+ unzip android-ndk-r12b-linux-x86_64.zip
+ tar zxvf android-sdk_r24.4.1-linux.tgz
+ export ANDROID_NDK=ndk-path
+ export ANDROID_SDK=sdk-path
+ 
+ git clone https://github.com/Bilibili/ijkplayer ijkplayer
+ git checkout -B k0.6.2.1 k0.6.2.1
+ 
+ cd ijkplayer
+ // checkout ffmpeg 源码，默认从 https://github.com/Bilibili/FFmpeg.git checkout
+./init-android.sh
+
+//增加 https 协议支持需要用到该库
+// checkout openssl android源码，默认从 https://github.com/Bilibili/openssl.git checkout
+./init-android-openssl.sh
+
+
+cd android/contrib
+// 编译 openssl
+./compile-openssl.sh clean
+./compile-openssl.sh all
+
+// 编译 ffmpeg
+./compile-ffmpeg.sh clean
+./compile-ffmpeg.sh all
+
+// 返回到 ijkplayer/android 目录
+cd ..
+./compile-ijk.sh all
+
+//编译完成后 so 就放在 ijkplayer/android/ijkplayer/ijkplayer-xxx/src/main/libs
+
+
