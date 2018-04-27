@@ -1,0 +1,29 @@
+ubuntu上安装docker
+apt-get remove docker docker-engine docker.io  #首次安装可以省略
+apt-get update
+
+apt-get install apt-transport-https ca-certificates curl  software-properties-common  #依赖
+
+#添加官方秘钥，显示OK,表示添加成功.
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -    
+
+#添加仓库
+add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+apt-get update
+
+apt-get install docker-ce
+
+docker -v   #查看版本
+
+## docker-compose安装
+curl -L https://github.com/docker/compose/releases/download/1.17.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
+docker-compose --version
+
+## docker-machine安装,docker-machine的使用是要基于virtualBox的。如果没有安装安装过，请先安装virtualBox。
+##下载并安装docker-machine
+curl -L https://github.com/docker/machine/releases/download/v0.13.0/docker-machine-`uname -s`-`uname -m` >/tmp/docker-machine
+chmod +x /tmp/docker-machine
+cp /tmp/docker-machine /usr/local/bin/docker-machine
+
+docker-machine version
