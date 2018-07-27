@@ -3,13 +3,18 @@ https://blog.csdn.net/discoverer100/article/details/51814171
 1.安装依赖包，运行命令
   sudo apt-get install curl openssh-server ca-certificates postfix
  
+2.添加GitLab包服务器和安装包
+  curl -sS https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh | sudo bash
+  
+或者
+*****************************************************************************************************************
 2.利用清华大学的镜像（https://mirror.tuna.tsinghua.edu.cn/help/gitlab-ce/）来进行主程序的安装。 
 首先信任 GitLab 的 GPG 公钥:
   curl https://packages.gitlab.com/gpg.key 2> /dev/null | sudo apt-key add - &>/dev/null
 
 利用root用户1（不是sudo，而是root），vi打开文件/etc/apt/sources.list.d/gitlab-ce.list，加入下面一行：
   deb https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/ubuntu xenial main
-
+******************************************************************************************************************
 安装 gitlab-ce:
   sudo apt-get update
   sudo apt-get install gitlab-ce
