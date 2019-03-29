@@ -54,6 +54,5 @@ export CATALINA_HOME=$CATALINA_2_HOME
 
 
     <!-- Define an AJP 1.3 Connector on port 8009 -->
-    <Connector port="7088" protocol="AJP/1.3" redirectPort="8443" />
-    ``` 
-    
+<Connector port="7088" protocol="AJP/1.3" redirectPort="8443" />
+```
